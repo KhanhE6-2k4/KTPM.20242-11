@@ -1,0 +1,20 @@
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewData["Title"] = "Login";
+
+}
+<h2>Login</h2>
+<form method="post">
+    <input type="text" name="username" class="form-control form-control-lg" style="width: 300px; height: 40px;" placeholder="Tên đăng nhập" />
+    <input type="password" name="password" class="form-control form-control-lg" style="width: 300px; height: 40px;" placeholder="Mật khẩu" />
+    <button type="submit" style="width: 80px; height: 40px;">Login</button>
+
+     <hr />
+
+    <button type="submit" name="loginAsGuest" value="true">Login as guest</button>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red">@ViewBag.Error</p>
+}

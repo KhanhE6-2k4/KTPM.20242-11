@@ -1,0 +1,12 @@
+@model IEnumerable<MediaStore.ViewModels.ProductViewModel>
+@{
+    ViewData["Title"] = "Search Result";
+}
+
+
+<!-- Fruits Shop Start-->
+@* <h1>Search Result</h1> *@
+<h2 class="title-head margin-top-10 margin-bottom-30 title-search">Has <b>@Model.Count()</b> results</h2>
+@await Html.PartialAsync("_productList", Model)
+<!-- Fruits Shop End-->
+

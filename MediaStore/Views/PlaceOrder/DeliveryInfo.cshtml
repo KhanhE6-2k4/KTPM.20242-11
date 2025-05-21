@@ -1,0 +1,115 @@
+ @model MediaStore.ViewModels.DeliveryForm
+ @{
+    ViewData["Title"] = "DeliveryInfo";
+    var orderError = TempData["OrderError"] as string;
+ } 
+  
+ <!-- Page Header -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">Checkout</h1>
+</div>
+
+<!-- Checkout Page Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <h1 class="mb-4">Delivery Info</h1>
+
+        <form asp-action="DeliveryInfo" method="post">
+            <!-- Hiển thị lỗi toàn cục -->
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row g-5">
+                <div class="col-12">
+
+                    <!-- Name -->
+                    <div class="form-group mb-3">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="form-group mb-3">
+                        <label asp-for="Address" class="form-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <!-- Province -->
+                    <div class="form-group mb-3">
+                        <label asp-for="Province" class="form-label"></label>
+                        <select asp-for="Province" asp-items="ViewBag.ProvinceList" class="form-control">
+                            <option value="">-- Select a province/city --</option>
+                        </select>
+                        <span asp-validation-for="Province" class="text-danger"></span>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="form-group mb-3">
+                        <label asp-for="Phone" class="form-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Rush Order checkbox -->
+                    <div class="form-check my-3">
+                        <input asp-for="IsRushOrder" class="form-check-input" />
+                        <label asp-for="IsRushOrder" class="form-check-label">Rush Order</label>
+                    </div>
+
+                    <!-- Optional Message -->
+                    <div class="form-group mb-3">
+                        <label asp-for="Message" class="form-label">Message (optional)</label>
+                        <textarea asp-for="Message" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Message" class="text-danger"></span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="row g-4 text-center align-items-center justify-content-center pt-4">
+                        <div class="col-md-4 col-lg-2">
+                            <button type="submit" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Checkout Page End -->
+
+@if (!string.IsNullOrEmpty(orderError))
+{
+    <div id="orderErrorPopup" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" style="color: #212529;">Order Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>@orderError</p>
+                </div>
+                @* <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div> *@
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var myModal = new bootstrap.Modal(document.getElementById('orderErrorPopup'));
+            myModal.show();
+        };
+    </script>
+}

@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Book Store</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+
+    <!-- Animation -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+    <div>
+        @await Html.PartialAsync("_ModalSearch")
+        @await Html.PartialAsync("_Spinner")
+		@await Html.PartialAsync("_Navbar")
+        @* style="min-height:1000px; margin-top:50px;" *@
+        <div>
+			@RenderBody()
+        </div> 
+		@await Html.PartialAsync("_Footer")
+    </div>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/waypoints/waypoints.min.js"></script>
+    <script src="~/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="~/js/main.js"></script>
+    <script src="~/js/cart.js"></script>
+    <script src="~/js/popup.js"></script>
+    @RenderSection("Scripts", required: false)
+    <script>
+        @* function performSearch () {
+            var keyword = $('#searchBox').val();
+            if (keyword.trim().length === 0) return;
+
+            $.ajax({
+                url: '/Product/Search',
+                type: 'GET',
+                data: { query: keyword },
+                success: function (result) {
+                    $('#searchResult').html(result);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Lỗi AJAX:', error);
+                    console.log('Trạng thái:', status);
+                    console.log('Phản hồi từ máy chủ:', xhr.responseText);
+                }
+            });
+
+        };
+
+        $(document).ready(function () {
+            $('#searchButton').on('click', function () {
+                performSearch();
+            });
+            // Optional: Allow search on enter key
+            $('#searchBox').on('keypress', function (e) {
+                if (e.which === 13) {
+                    performSearch();
+                }
+            });
+        }); *@
+
+        @* $(function () {
+            $("#dialog-modal").dialog({
+                autoOpen: false,
+                height: 280,
+                width: 400,
+                modal: true
+            });
+
+            $("#modal-opener").click(function () {
+                $("#dialog-modal").dialog("open");
+            });
+        }); *@
+
+        @* document.querySelectorAll('.modal-opener').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var productId = this.getAttribute('data-id');
+                var myModal = new bootstrap.Modal(document.getElementById('dialog-modal-' + productId));
+                myModal.show();
+            });
+        }); *@
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('click', function(event) {
+            // Tìm phần tử .modal-opener (nếu click ở trong nó hoặc chính nó)
+            var opener = event.target.closest('.modal-opener');
+             if (!opener) return; // nếu không phải click vào .modal-opener thì bỏ qua
+
+            // Lấy giá trị id từ thuộc tính data-id
+            var id = opener.getAttribute('data-id');
+            if (!id) return;
+
+            // Tìm modal tương ứng với id đó
+            var modalEl = document.getElementById('dialog-modal-' + id);
+            if (!modalEl) return;
+
+            // Khởi tạo và mở modal Bootstrap 5
+            var modal = new bootstrap.Modal(modalEl);
+            modal.show();
+            });
+        });
+
+        @* $(document).ready(function () {
+    $('#searchBox').on('keyup', function () {
+        const query = $(this).val();
+        loadPage(1, query);
+    });
+}); *@
+$(document).ready(function () {
+    $('#searchButton').on('click', function () {
+        const query = $('#searchBox').val();
+        loadPage(1, query);  // Gọi hàm loadPage khi bấm nút
+    });
+    $('#searchBox').on('keypress', function (e) {
+        if (e.which === 13) {
+            const query = $('#searchBox').val();
+            loadPage(1, query);
+        }
+    })
+});
+
+function loadPage(page, query = "") {
+    const url = `/Product/Index?page=${page}&query=${encodeURIComponent(query)}`;
+    $.get(url, function (data) {
+        $('#searchResult').html(data);
+    });
+}
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+@model MediaStore.ViewModels.ProductViewModel
+<!-- Modal -->
+<div class="modal fade" id="dialog-modal-@Model.MediaId" tabindex="-1" aria-labelledby="dialog-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: none; width: 800px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dialog-modal-label">Add To Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <div class="container">
+                <div class="row mb-3 d-flex align-items-stretch">
+                    <!-- Cột ảnh -->
+                    <div class="col-3 p-3 d-flex justify-content-center align-items-center">
+                        <img src="~/img/media_img/@Model.ImageUrl" alt="product img" class="img-fluid">
+                    </div>
+
+                    <!-- Cột nội dung giữa -->
+                    <div class="col-6 p-3 d-flex align-items-center text-start">
+                        <div>
+                            <h4 class="fw-bold">@Model.Title</h4>
+                            <p>@Model.Description</p>
+                        </div>
+                    </p>
+                    </div>
+
+                    <!-- Cột input-group -->
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        @* <div class="input-group quantity" style="width: 100px;">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <input id="qty-@Model.MediaId" type="text" class="form-control form-control-sm text-center border-0" value="1" name="qty">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div> *@
+                        <div class="input-group quantity" style="width: 100px;">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="changeQty(@Model.MediaId, -1)">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <input id="qty-@Model.MediaId" 
+                                type="text" 
+                                class="form-control form-control-sm text-center border-0" 
+                                value="1" 
+                                min="1" 
+                                max="@Model.TotalQuantity" 
+                                name="qty" 
+                                data-max="@Model.TotalQuantity"
+                                onchange="validateQty(@Model.MediaId)"
+                                onblur="validateQty(@Model.MediaId)">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="changeQty(@Model.MediaId, 1)">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-id="add" class="btn border border-secondary rounded-pill px-4 py-2 mb-2 text-primary" onclick="addToCart(@Model.MediaId, document.getElementById('qty-@Model.MediaId').value)" data-bs-dismiss="modal"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add </button>
+      </div>
+    </div>
+  </div>
+</div>

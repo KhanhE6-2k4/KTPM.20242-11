@@ -1,0 +1,204 @@
+@model MediaStore.ViewModels.InvoiceViewModel
+@{
+    ViewData["Title"] = "Invoice";
+}
+ <!-- Single Page Header start -->
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Checkout</h1>
+            <!-- <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active text-white">Checkout</li>
+            </ol> -->
+        </div>
+<!-- Single Page Header End -->
+<style>
+    .bg-danger.text-white th, .bg-danger.text-white td {
+        color: white;
+    }
+    .table td, .table th {
+        border: none;
+    }
+     .border-bottom-white {
+        border-bottom: 1px solid white !important;
+    }
+    .bg-red-soft {
+        background-color: #568ad3; /* Màu đỏ rượu vang */
+    }
+    .product-item {
+        height: 200px; /* Chiều cao = khung */
+    }
+     .custom-scroll {
+        height: 300px;
+        width: 300px;
+        overflow-y: auto;
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: #ccc transparent; /* Firefox */
+    }
+
+    /* Chrome, Edge, Safari */
+    .custom-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 10px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .price-text {
+        color: #212529;
+    }
+</style>
+
+     <!-- Checkout Page Start -->
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <h1 class="mb-4">Invoice</h1>
+                    <div class="row g-5 align-items-start">
+                        <div class="col-md-12 col-lg-6 col-xl-7">
+                            <div class="table-responsive">
+                                <table class="table w-100 mb-0">
+                                    <thead>
+                                        <th colspan="2" class="fs-4">Your Information</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 30%;">Customer:</td>
+                                            <td style="width: 70%;">@Model.name</td> 
+                                        </tr>
+                                        <tr>
+                                            <td>Phone</td>
+                                            <td>@Model.phone</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address:</td>
+                                            <td>@Model.address</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email:</td>
+                                            <td>@Model.email</td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2" class="fs-5 pt-4 pb-2">
+                                                Items
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="overflow-auto border border-5 rounded p-3 w- 100" style="height: 200px;">
+                                                    <table class="table table-sm table-bordered mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Products</th>
+                                                                <th scope="col">Name</th>
+                                                                <th scope="col">Price</th>
+                                                                <th scope="col">Quantity</th>
+                                                                <th scope="col">Total</th>                                                    
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in Model.regularItem)
+                                                            {
+                                                                <tr>
+                                                                    <th scope="row">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <img src="~/img/media_img/@item.ImageUrl" class="img-fluid me-5" style="width: 80px; height: 100px;" alt="">
+                                                                        </div>
+                                                                    </th>
+                                                                    <td>
+                                                                        <p class="mb-0 mt-4" style="width: 180px">@item.Title</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-0 mt-4">@($"{item.Price.ToString("#,##0")} VND")</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-0 mt-4 text-center">@item.Qty</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-0 mt-4">@($"{item.Amount.ToString("#,##0")} VND")</p>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+
+                                                    </table>
+                                                    @* <div class="mb-3 p-3 bg-light border rounded">
+                                                        <h5>Product 1</h5>
+                                                        <p>Description for product 1</p>
+                                                    </div>
+                                                    <div class="mb-3 p-3 bg-light border rounded">
+                                                        <h5>Product 2</h5>
+                                                        <p>Description for product 2</p>
+                                                    </div> *@
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6 col-xl-5 bg-red-soft text-white p-4 rounded shadow">
+                            <div class="table-responsive">
+
+                                <table class="table w-100 text-white mb-0" style="border-collapse: collapse; table-layout: fixed;">
+                                     <colgroup>
+                                        <col style="width: 70%;">
+                                        <col style="width: 30%;">
+                                    </colgroup>
+                                    <thead>
+                                        <tr class="border-bottom-white">
+                                            <th colspan="2" class="text-center fs-4">Payment Information</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <tr class="border-bottom-white">
+                                            <th colspan="2" class="text-start fs-5 pb-3 pt-3">Order</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Subtotal:</td>
+                                            <td class="price-text">@($"{Model.regularSubTotal.ToString("#,##0")} VND")</td>
+                                        </tr>
+                                         <tr>
+                                            <td>VAT(10%):</td>
+                                            <td class="price-text">@($"{Model.regularVAT.ToString("#,##0")} VND")</td>
+                                        </tr>
+                                         <tr class="border-bottom-white">
+                                            <td>Shipping fee:</td>
+                                            <td class="price-text">@($"{Model.regularShippingFee.ToString("#,##0")} VND")</td>
+                                        </tr>
+                                        <tr class="border-bottom-white">
+                                            <td colspan="2" class="text-center price-text fs-5 pb-3 pt-3"><span class="text-white">Total Price:</span>   <strong>@($"{Model.TotalPrice.ToString("#,##0")} VND")</strong></td>
+                                        </tr>
+                                        @* <tr class="text-center">
+                                            <td class="pt-4" style="width: 50%;">
+                                                <a asp-action="Index" asp-controller="Home" class="btn border-secondary py-2 px-0 text-uppercase w-100 text-secondary">Cancel Order</a>
+                                            </td>
+                                            <td class="pt-4" style="width: 50%;">
+                                                <a asp-action="Checkout" asp-controller="VnPay" class="btn border-secondary py-2 px-0 text-uppercase w-100 text-secondary">Place Order</a>
+                                            </td>
+
+                                        </tr> *@
+                                    </tbody>
+                                </table>
+                                <div class="d-flex gap-3 pt-4">
+                                    <a asp-action="Index" asp-controller="Home" class="btn border-secondary w-50 text-uppercase text-secondary">
+                                        Cancel Order
+                                    </a>
+                                    <a asp-action="Pay" asp-controller="VnPay" class="btn border-secondary w-50 text-uppercase text-secondary">
+                                        Place Order
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <!-- Checkout Page End -->
+
