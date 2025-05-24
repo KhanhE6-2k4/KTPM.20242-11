@@ -1,0 +1,534 @@
+Folder PATH listing for volume Windows
+Volume serial number is 5696-5673
+C:.
+¦   MediaStore.sln
+¦   README.md
+¦   structure.txt
+¦   
++---MediaStore
+    ¦   appsettings.Development.json
+    ¦   appsettings.json
+    ¦   MediaStore.csproj
+    ¦   MediaStore.csproj.user
+    ¦   Program.cs
+    ¦   
+    +---Areas
+    ¦   +---Admin
+    ¦       +---Controllers
+    ¦       ¦       DashboardController.cs
+    ¦       ¦       
+    ¦       +---Views
+    ¦           ¦   _ViewStart.cshtml
+    ¦           ¦   
+    ¦           +---Dashboard
+    ¦           ¦       Index.cshtml
+    ¦           ¦       
+    ¦           +---Shared
+    ¦                   _AdminLayout.cshtml
+    ¦                   
+    +---Controllers
+    ¦       AccountController.cs
+    ¦       BooksController.cs
+    ¦       CartController.cs
+    ¦       HomeController.cs
+    ¦       PayOrderController.cs
+    ¦       PlaceOrderController.cs
+    ¦       PlaceRushOrderController.cs
+    ¦       ProductController.cs
+    ¦       
+    +---Data
+    ¦       AimsContext.cs
+    ¦       Book.cs
+    ¦       CdAndLp.cs
+    ¦       DeliveryInfo.cs
+    ¦       Dvd.cs
+    ¦       Invoice.cs
+    ¦       Media.cs
+    ¦       OrderInfo.cs
+    ¦       OrderMedia.cs
+    ¦       PaymentTransaction.cs
+    ¦       RushOrderInfo.cs
+    ¦       User.cs
+    ¦       
+    +---Exception
+    ¦       CartException.cs
+    ¦       DeliveryAddressNoSupportException.cs
+    ¦       EmptyCartWhenCheckoutExcpetion.cs
+    ¦       NoRushOrderItemException.cs
+    ¦       OrderException.cs
+    ¦       
+    +---Helpers
+    ¦       MySetting.cs
+    ¦       SessionExtensions.cs
+    ¦       VnPayLibrary.cs
+    ¦       
+    +---Models
+    ¦       Book.cs
+    ¦       Cart.cs
+    ¦       CdAndLp.cs
+    ¦       Dvd.cs
+    ¦       ErrorViewModel.cs
+    ¦       Media.cs
+    ¦       
+    +---obj
+    ¦   ¦   MediaStore.csproj.nuget.dgspec.json
+    ¦   ¦   MediaStore.csproj.nuget.g.props
+    ¦   ¦   MediaStore.csproj.nuget.g.targets
+    ¦   ¦   project.assets.json
+    ¦   ¦   project.nuget.cache
+    ¦   ¦   
+    ¦   +---Debug
+    ¦       +---net9.0
+    ¦               .NETCoreApp,Version=v9.0.AssemblyAttributes.cs
+    ¦               MediaStore.AssemblyInfo.cs
+    ¦               MediaStore.AssemblyInfoInputs.cache
+    ¦               MediaStore.assets.cache
+    ¦               MediaStore.csproj.AssemblyReference.cache
+    ¦               MediaStore.GeneratedMSBuildEditorConfig.editorconfig
+    ¦               MediaStore.GlobalUsings.g.cs
+    ¦               MediaStore.RazorAssemblyInfo.cache
+    ¦               MediaStore.RazorAssemblyInfo.cs
+    ¦               staticwebassets.removed.txt
+    ¦               
+    +---Properties
+    ¦       launchSettings.json
+    ¦       
+    +---Services
+    ¦   ¦   IShippingService.cs
+    ¦   ¦   IVnPayService.cs
+    ¦   ¦   ShippingService.cs
+    ¦   ¦   VnPayService.cs
+    ¦   ¦   
+    ¦   +---Payment
+    ¦           IPayment.cs
+    ¦           PaymentResult.cs
+    ¦           RefundRequest.cs
+    ¦           RefundResult.cs
+    ¦           
+    +---Subsystem
+    ¦   +---Payment
+    ¦       +---VnPay
+    ¦               VnPayController.cs
+    ¦               
+    +---Utilities
+    ¦       PaginatedList.cs
+    ¦       
+    +---ViewComponents
+    ¦       MediaSummaryViewComponents.cs
+    ¦       
+    +---ViewModels
+    ¦       CartItem.cs
+    ¦       DeliveryForm.cs
+    ¦       InvoiceViewModel.cs
+    ¦       MediaSummaryItem.cs
+    ¦       Order.cs
+    ¦       PagedProductViewModel.cs
+    ¦       ProductViewModel.cs
+    ¦       RushOrderForm.cs
+    ¦       UpdateQuantityRequest.cs
+    ¦       VnPaymentRequestModel.cs
+    ¦       VnPaymentResponseModel.cs
+    ¦       
+    +---Views
+    ¦   ¦   _ViewImports.cshtml
+    ¦   ¦   _ViewStart.cshtml
+    ¦   ¦   
+    ¦   +---Account
+    ¦   ¦       AccessDenied.cshtml
+    ¦   ¦       Login.cshtml
+    ¦   ¦       
+    ¦   +---Books
+    ¦   ¦       Create.cshtml
+    ¦   ¦       Delete.cshtml
+    ¦   ¦       Details.cshtml
+    ¦   ¦       Edit.cshtml
+    ¦   ¦       Index.cshtml
+    ¦   ¦       
+    ¦   +---Cart
+    ¦   ¦       AddToCart.cshtml
+    ¦   ¦       Index.cshtml
+    ¦   ¦       
+    ¦   +---Home
+    ¦   ¦       Index.cshtml
+    ¦   ¦       PageNotFound.cshtml
+    ¦   ¦       Privacy.cshtml
+    ¦   ¦       
+    ¦   +---PayOrder
+    ¦   ¦       Invoice.cshtml
+    ¦   ¦       RushInvoice.cshtml
+    ¦   ¦       
+    ¦   +---PlaceOrder
+    ¦   ¦       DeliveryInfo.cshtml
+    ¦   ¦       Index.cshtml
+    ¦   ¦       
+    ¦   +---PlaceRushOrder
+    ¦   ¦       RushOrder.cshtml
+    ¦   ¦       
+    ¦   +---Product
+    ¦   ¦   ¦   Index.cshtml
+    ¦   ¦   ¦   _PopUp.cshtml
+    ¦   ¦   ¦   _productList.cshtml
+    ¦   ¦   ¦   _SearchResult.cshtml
+    ¦   ¦   ¦   
+    ¦   ¦   +---ProductDetail
+    ¦   ¦           AddToCartButton.cshtml
+    ¦   ¦           bookDetail.cshtml
+    ¦   ¦           cdDetail.cshtml
+    ¦   ¦           dvdDetail.cshtml
+    ¦   ¦           lpDetail.cshtml
+    ¦   ¦           
+    ¦   +---Shared
+    ¦   ¦   ¦   Error.cshtml
+    ¦   ¦   ¦   _Footer.cshtml
+    ¦   ¦   ¦   _Layout.cshtml
+    ¦   ¦   ¦   _Layout.cshtml.css
+    ¦   ¦   ¦   _LayoutCustomer.cshtml
+    ¦   ¦   ¦   _LoginLayout.cshtml
+    ¦   ¦   ¦   _ModalSearch.cshtml
+    ¦   ¦   ¦   _Navbar.cshtml
+    ¦   ¦   ¦   _productDetailTemplate.cshtml
+    ¦   ¦   ¦   _ShopTemplate.cshtml
+    ¦   ¦   ¦   _Spinner.cshtml
+    ¦   ¦   ¦   _ValidationScriptsPartial.cshtml
+    ¦   ¦   ¦   
+    ¦   ¦   +---Components
+    ¦   ¦       +---MediaSummary
+    ¦   ¦               Default.cshtml
+    ¦   ¦               
+    ¦   +---VnPay
+    ¦           PaymentFail.cshtml
+    ¦           PaymentReturn.cshtml
+    ¦           PaymentSuccess.cshtml
+    ¦           
+    +---wwwroot
+        ¦   404.html
+        ¦   cart.html
+        ¦   chackout.html
+        ¦   contact.html
+        ¦   favicon.ico
+        ¦   index.html
+        ¦   LICENSE.txt
+        ¦   READ-ME.txt
+        ¦   shop-detail.html
+        ¦   shop-detail_2.html
+        ¦   shop.html
+        ¦   testimonial.html
+        ¦   vegetable-website-template.jpg
+        ¦   
+        +---css
+        ¦       bootstrap.min.css
+        ¦       site.css
+        ¦       style.css
+        ¦       
+        +---image
+        ¦       1.png
+        ¦       2.png
+        ¦       3.png
+        ¦       4.png
+        ¦       5.jpg
+        ¦       6.jpg
+        ¦       book2.jpg
+        ¦       book3.jpg
+        ¦       book4.jpg
+        ¦       book5.jpg
+        ¦       book6.jpg
+        ¦       book7.jpg
+        ¦       cd1.jpg
+        ¦       cd2.png
+        ¦       cd3.jpg
+        ¦       cd4.jpg
+        ¦       cd5.jpg
+        ¦       cd6.jpg
+        ¦       dvd1.jpg
+        ¦       dvd2.jpg
+        ¦       dvd3.jpg
+        ¦       dvd4.jpg
+        ¦       dvd5.jpg
+        ¦       dvd6.jpg
+        ¦       dvd7.jpg
+        ¦       Logo.png
+        ¦       sample_book.jpg
+        ¦       sample_cd.jpg
+        ¦       sample_dvd.jpg
+        ¦       
+        +---img
+        ¦   ¦   avatar.jpg
+        ¦   ¦   baner-1.png
+        ¦   ¦   banner-fruits.jpg
+        ¦   ¦   best-product-1.jpg
+        ¦   ¦   best-product-2.jpg
+        ¦   ¦   best-product-3.jpg
+        ¦   ¦   best-product-4.jpg
+        ¦   ¦   best-product-5.jpg
+        ¦   ¦   best-product-6.jpg
+        ¦   ¦   book1-new.png
+        ¦   ¦   book1.png
+        ¦   ¦   book2-new.png
+        ¦   ¦   book2.png
+        ¦   ¦   book3-new.png
+        ¦   ¦   book3.png
+        ¦   ¦   bookDetail.png
+        ¦   ¦   cart-page-header-img-new.jpg
+        ¦   ¦   cart-page-header-img.jpg
+        ¦   ¦   featur-1.jpg
+        ¦   ¦   featur-2.jpg
+        ¦   ¦   featur-3.jpg
+        ¦   ¦   fruite-item-1.jpg
+        ¦   ¦   fruite-item-2.jpg
+        ¦   ¦   fruite-item-3.jpg
+        ¦   ¦   fruite-item-4.jpg
+        ¦   ¦   fruite-item-5.jpg
+        ¦   ¦   fruite-item-6.jpg
+        ¦   ¦   hero-img-1.png
+        ¦   ¦   hero-img-2.jpg
+        ¦   ¦   hero-img-3.jpg
+        ¦   ¦   hero-img-4.jpg
+        ¦   ¦   hero-img.jpg
+        ¦   ¦   newhero-img.PNG
+        ¦   ¦   payment.png
+        ¦   ¦   single-item.jpg
+        ¦   ¦   testimonial-1.jpg
+        ¦   ¦   vegetable-item-1.jpg
+        ¦   ¦   vegetable-item-2.jpg
+        ¦   ¦   vegetable-item-3.png
+        ¦   ¦   vegetable-item-4.jpg
+        ¦   ¦   vegetable-item-5.jpg
+        ¦   ¦   vegetable-item-6.jpg
+        ¦   ¦   
+        ¦   +---media_img
+        ¦           Media1.jpg
+        ¦           Media10.jpg
+        ¦           Media11.jpg
+        ¦           Media12.jpg
+        ¦           Media13.jpg
+        ¦           Media14.jpg
+        ¦           Media15.jpg
+        ¦           Media2.jpg
+        ¦           Media3.jpg
+        ¦           Media4.jpg
+        ¦           Media5.jpg
+        ¦           Media6.jpg
+        ¦           Media7.jpg
+        ¦           Media8.jpg
+        ¦           Media9.jpg
+        ¦           
+        +---js
+        ¦       cart.js
+        ¦       main.js
+        ¦       popup.js
+        ¦       search.js
+        ¦       site.js
+        ¦       
+        +---lib
+        ¦   +---bootstrap
+        ¦   ¦   ¦   LICENSE
+        ¦   ¦   ¦   
+        ¦   ¦   +---dist
+        ¦   ¦       +---css
+        ¦   ¦       ¦       bootstrap-grid.css
+        ¦   ¦       ¦       bootstrap-grid.css.map
+        ¦   ¦       ¦       bootstrap-grid.min.css
+        ¦   ¦       ¦       bootstrap-grid.min.css.map
+        ¦   ¦       ¦       bootstrap-grid.rtl.css
+        ¦   ¦       ¦       bootstrap-grid.rtl.css.map
+        ¦   ¦       ¦       bootstrap-grid.rtl.min.css
+        ¦   ¦       ¦       bootstrap-grid.rtl.min.css.map
+        ¦   ¦       ¦       bootstrap-reboot.css
+        ¦   ¦       ¦       bootstrap-reboot.css.map
+        ¦   ¦       ¦       bootstrap-reboot.min.css
+        ¦   ¦       ¦       bootstrap-reboot.min.css.map
+        ¦   ¦       ¦       bootstrap-reboot.rtl.css
+        ¦   ¦       ¦       bootstrap-reboot.rtl.css.map
+        ¦   ¦       ¦       bootstrap-reboot.rtl.min.css
+        ¦   ¦       ¦       bootstrap-reboot.rtl.min.css.map
+        ¦   ¦       ¦       bootstrap-utilities.css
+        ¦   ¦       ¦       bootstrap-utilities.css.map
+        ¦   ¦       ¦       bootstrap-utilities.min.css
+        ¦   ¦       ¦       bootstrap-utilities.min.css.map
+        ¦   ¦       ¦       bootstrap-utilities.rtl.css
+        ¦   ¦       ¦       bootstrap-utilities.rtl.css.map
+        ¦   ¦       ¦       bootstrap-utilities.rtl.min.css
+        ¦   ¦       ¦       bootstrap-utilities.rtl.min.css.map
+        ¦   ¦       ¦       bootstrap.css
+        ¦   ¦       ¦       bootstrap.css.map
+        ¦   ¦       ¦       bootstrap.min.css
+        ¦   ¦       ¦       bootstrap.min.css.map
+        ¦   ¦       ¦       bootstrap.rtl.css
+        ¦   ¦       ¦       bootstrap.rtl.css.map
+        ¦   ¦       ¦       bootstrap.rtl.min.css
+        ¦   ¦       ¦       bootstrap.rtl.min.css.map
+        ¦   ¦       ¦       
+        ¦   ¦       +---js
+        ¦   ¦               bootstrap.bundle.js
+        ¦   ¦               bootstrap.bundle.js.map
+        ¦   ¦               bootstrap.bundle.min.js
+        ¦   ¦               bootstrap.bundle.min.js.map
+        ¦   ¦               bootstrap.esm.js
+        ¦   ¦               bootstrap.esm.js.map
+        ¦   ¦               bootstrap.esm.min.js
+        ¦   ¦               bootstrap.esm.min.js.map
+        ¦   ¦               bootstrap.js
+        ¦   ¦               bootstrap.js.map
+        ¦   ¦               bootstrap.min.js
+        ¦   ¦               bootstrap.min.js.map
+        ¦   ¦               
+        ¦   +---easing
+        ¦   ¦       easing.js
+        ¦   ¦       easing.min.js
+        ¦   ¦       
+        ¦   +---jquery
+        ¦   ¦   ¦   LICENSE.txt
+        ¦   ¦   ¦   
+        ¦   ¦   +---dist
+        ¦   ¦           jquery.js
+        ¦   ¦           jquery.min.js
+        ¦   ¦           jquery.min.map
+        ¦   ¦           jquery.slim.js
+        ¦   ¦           jquery.slim.min.js
+        ¦   ¦           jquery.slim.min.map
+        ¦   ¦           
+        ¦   +---jquery-validation
+        ¦   ¦   ¦   LICENSE.md
+        ¦   ¦   ¦   
+        ¦   ¦   +---dist
+        ¦   ¦           additional-methods.js
+        ¦   ¦           additional-methods.min.js
+        ¦   ¦           jquery.validate.js
+        ¦   ¦           jquery.validate.min.js
+        ¦   ¦           
+        ¦   +---jquery-validation-unobtrusive
+        ¦   ¦   ¦   LICENSE.txt
+        ¦   ¦   ¦   
+        ¦   ¦   +---dist
+        ¦   ¦           jquery.validate.unobtrusive.js
+        ¦   ¦           jquery.validate.unobtrusive.min.js
+        ¦   ¦           
+        ¦   +---lightbox
+        ¦   ¦   +---css
+        ¦   ¦   ¦       lightbox.min.css
+        ¦   ¦   ¦       
+        ¦   ¦   +---images
+        ¦   ¦   ¦       close.png
+        ¦   ¦   ¦       loading.gif
+        ¦   ¦   ¦       next.png
+        ¦   ¦   ¦       prev.png
+        ¦   ¦   ¦       
+        ¦   ¦   +---js
+        ¦   ¦           lightbox.min.js
+        ¦   ¦           
+        ¦   +---owlcarousel
+        ¦   ¦   ¦   LICENSE
+        ¦   ¦   ¦   owl.carousel.js
+        ¦   ¦   ¦   owl.carousel.min.js
+        ¦   ¦   ¦   
+        ¦   ¦   +---assets
+        ¦   ¦           ajax-loader.gif
+        ¦   ¦           owl.carousel.css
+        ¦   ¦           owl.carousel.min.css
+        ¦   ¦           owl.theme.default.css
+        ¦   ¦           owl.theme.default.min.css
+        ¦   ¦           owl.theme.green.css
+        ¦   ¦           owl.theme.green.min.css
+        ¦   ¦           owl.video.play.png
+        ¦   ¦           
+        ¦   +---waypoints
+        ¦           links.php
+        ¦           waypoints.min.js
+        ¦           
+        +---scss
+            ¦   bootstrap.scss
+            ¦   
+            +---bootstrap
+                +---scss
+                    ¦   bootstrap-grid.scss
+                    ¦   bootstrap-reboot.scss
+                    ¦   bootstrap-utilities.scss
+                    ¦   bootstrap.scss
+                    ¦   _accordion.scss
+                    ¦   _alert.scss
+                    ¦   _badge.scss
+                    ¦   _breadcrumb.scss
+                    ¦   _button-group.scss
+                    ¦   _buttons.scss
+                    ¦   _card.scss
+                    ¦   _carousel.scss
+                    ¦   _close.scss
+                    ¦   _containers.scss
+                    ¦   _dropdown.scss
+                    ¦   _forms.scss
+                    ¦   _functions.scss
+                    ¦   _grid.scss
+                    ¦   _helpers.scss
+                    ¦   _images.scss
+                    ¦   _list-group.scss
+                    ¦   _mixins.scss
+                    ¦   _modal.scss
+                    ¦   _nav.scss
+                    ¦   _navbar.scss
+                    ¦   _offcanvas.scss
+                    ¦   _pagination.scss
+                    ¦   _popover.scss
+                    ¦   _progress.scss
+                    ¦   _reboot.scss
+                    ¦   _root.scss
+                    ¦   _spinners.scss
+                    ¦   _tables.scss
+                    ¦   _toasts.scss
+                    ¦   _tooltip.scss
+                    ¦   _transitions.scss
+                    ¦   _type.scss
+                    ¦   _utilities.scss
+                    ¦   _variables.scss
+                    ¦   
+                    +---forms
+                    ¦       _floating-labels.scss
+                    ¦       _form-check.scss
+                    ¦       _form-control.scss
+                    ¦       _form-range.scss
+                    ¦       _form-select.scss
+                    ¦       _form-text.scss
+                    ¦       _input-group.scss
+                    ¦       _labels.scss
+                    ¦       _validation.scss
+                    ¦       
+                    +---helpers
+                    ¦       _clearfix.scss
+                    ¦       _colored-links.scss
+                    ¦       _position.scss
+                    ¦       _ratio.scss
+                    ¦       _stretched-link.scss
+                    ¦       _text-truncation.scss
+                    ¦       _visually-hidden.scss
+                    ¦       
+                    +---mixins
+                    ¦       _alert.scss
+                    ¦       _border-radius.scss
+                    ¦       _box-shadow.scss
+                    ¦       _breakpoints.scss
+                    ¦       _buttons.scss
+                    ¦       _caret.scss
+                    ¦       _clearfix.scss
+                    ¦       _color-scheme.scss
+                    ¦       _container.scss
+                    ¦       _deprecate.scss
+                    ¦       _forms.scss
+                    ¦       _gradients.scss
+                    ¦       _grid.scss
+                    ¦       _image.scss
+                    ¦       _list-group.scss
+                    ¦       _lists.scss
+                    ¦       _pagination.scss
+                    ¦       _reset-text.scss
+                    ¦       _resize.scss
+                    ¦       _table-variants.scss
+                    ¦       _text-truncate.scss
+                    ¦       _transition.scss
+                    ¦       _utilities.scss
+                    ¦       _visually-hidden.scss
+                    ¦       
+                    +---utilities
+                    ¦       _api.scss
+                    ¦       
+                    +---vendor
+                            _rfs.scss
+                            
