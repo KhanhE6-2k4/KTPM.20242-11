@@ -6,14 +6,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
+  <!-- <ItemGroup>
     <Compile Remove="Views\Order\**" />
     <Content Remove="Views\Order\**" />
     <EmbeddedResource Remove="Views\Order\**" />
     <None Remove="Views\Order\**" />
-  </ItemGroup>
+  </ItemGroup> -->
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.12.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
@@ -21,6 +22,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+    <PackageReference Include="QuestPDF" Version="2025.5.0" />
   </ItemGroup>
 
   <ItemGroup>

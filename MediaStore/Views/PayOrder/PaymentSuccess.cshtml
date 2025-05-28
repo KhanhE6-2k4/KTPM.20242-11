@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Success";
+}
+@* <div style="min-height:1000px; margin-top:400px;">
+    <h1>Success</h1>
+    <h3 class="text-danger">@TempData["Message"]</h3>
+    <a asp-action="ProcessAfterPay" asp-controller="PlaceOrder" asp-route-success="true" class="btn btn-secondary">Close</a>
+</div>  *@
+
+<div id="SuccessPaymentPopup" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" style="color: #212529;">Payment Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Go to home page"></button>
+            </div>
+            <div class="modal-body">
+                <p>@TempData["Message"]</p>
+            </div>
+        </div>
+    </div> 
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var modalElement = document.getElementById('SuccessPaymentPopup');
+
+        if (modalElement) {
+            var myModal = new bootstrap.Modal(modalElement);
+            myModal.show();
+
+            modalElement.addEventListener('hidden.bs.modal', function () {
+                window.location.href = '@Url.Action("ProcessAfterPay", "PlaceOrder", new { success = "true" })'; // Chuyen huong sau khi dong thong bao
+            });
+        }
+    });
+</script>

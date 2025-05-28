@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaStore", "MediaStore.csproj", "{E5734818-86C6-ECDA-134E-BD6FCBAF403A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5734818-86C6-ECDA-134E-BD6FCBAF403A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5734818-86C6-ECDA-134E-BD6FCBAF403A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5734818-86C6-ECDA-134E-BD6FCBAF403A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5734818-86C6-ECDA-134E-BD6FCBAF403A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {97FE3AF1-4EAE-44C5-B60E-CD6E4223BA01}
+	EndGlobalSection
+EndGlobal

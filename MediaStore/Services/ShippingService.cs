@@ -7,12 +7,12 @@ namespace MediaStore.Services
     {
         public int CalculateRegularFee(DeliveryForm form, List<CartItem> cart)
         {
-            return 10;
+            return 15000;
         }
 
         public int CalculateRushFee(DeliveryForm form, List<CartItem> cart)
         {
-            return 30; // cố định hoặc tính theo khối lượng hàng, địa chỉ,...
+            return 30000; // cố định hoặc tính theo khối lượng hàng, địa chỉ,...
         }
     }
 

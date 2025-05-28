@@ -60,7 +60,8 @@
             @for (int i = 1; i <= ViewBag.TotalPages; i++)
             {
                 <a href="#" class="page-link rounded mx-1 @(ViewBag.CurrentPage == i ? "bg-primary text-white" : "")"
-                   onclick="loadPage(@i, '@ViewBag.Query'); return false;">@i</a>
+                   @* onclick="loadPage(@i, '@ViewBag.Query'); return false;">@i</a> *@
+                   onclick="loadPage(@i, '@ViewBag.Query', '@ViewBag.TypeName', '@ViewBag.Sorted'); return false;">@i</a>
             }
         </div>
     </div>

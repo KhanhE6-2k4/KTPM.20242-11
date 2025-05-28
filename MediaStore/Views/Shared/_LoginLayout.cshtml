@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Login Page</title>
-    <link rel="stylesheet" href="~/css/login.css" />
-</head>
-<body class="login-page">
-    <div class="login-wrapper">
-        @RenderBody()
-    </div>
-</body>
+<html lang="en">
+  <head>
+  	<title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="~/css/style_login.css">
+
+	</head>
+	<body class="img js-fullheight" style="background-image: url('@Url.Content("~/img/Login/bg.jpg")');">
+		<div>
+			@RenderBody()
+		</div>
+
+	<script src="~/js_login/jquery.min.js"></script>
+	<script src="~/js_login/popper.js"></script>
+	<script src="~/js_login/bootstrap.min.js"></script>
+	<script src="~/js_login/main.js"></script>
+
+	</body>
 </html>
+

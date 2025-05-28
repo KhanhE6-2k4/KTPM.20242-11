@@ -3,7 +3,7 @@
 }
     <!-- Single Page Header start -->
         <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">Book Detail</h1>
+            <h1 class="text-center text-white display-6"> Product Detail</h1>
             <ol class="breadcrumb justify-content-center mb-0">
                 <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Pages</a></li>
@@ -25,63 +25,9 @@
                         <div class="row g-4 fruite">
                             <div class="col-lg-12">
                                 <h4 class="mb-4">Featured products</h4>
-                                <div class="d-flex align-items-center justify-content-start" style="margin-bottom: 30px;">
-                                    <div class="rounded" style="width: 150px; height: 150px; overflow: hidden;" >
-                                        <img src="img/book1-new.png" style="width: 100%; height: 100%; object-position: left; object-fit: contain;" class="img-fluid rounded" alt="Image">
-                                    </div>
-                                    <div class="name_and_price">
-                                        <h6 class="mb-2 text-truncate" style="width: 150px;">On writing: A Memoir of the Craft (20th Anniversary Edition with Contributions from Joe Hill and Owen King) (Hodder India)</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">20 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">25 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start" style="margin-bottom: 30px;">
-                                    <div class="rounded" style="width: 150px; height: 150px; overflow: hidden;">
-                                        <img src="img/book2-new.png" style="width: 100%; height: 100%; object-position: left; object-fit: contain;" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div class="name_and_price">
-                                        <h6 class="mb-2 text-truncate" style="width: 150px;">A Brief History Of Time: From the Big Bang To Black Holes</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">22 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">28 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded" style="width: 150px; height: 150px; overflow: hidden;" style="margin-bottom: 30px;">
-                                        <img src="img/book3-new.png" style="width: 100%; height: 100%; object-position: left; object-fit: contain;" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div class="name_and_price">
-                                        <h6 class="mb-2 text-truncate" style="width: 150px;">How to Avoid a Climate Disaster: The Solutions We Have and the Breakthroughs We Need</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">19 $</h5>
-                                            <!-- <h5 class="text-danger text-decoration-line-through">4.11 $</h5> -->
-                                        </div>
-                                    </div>
-                                </div>
+                                
+                                @await Component.InvokeAsync("FeaturedMedia")
+
                                 <div class="d-flex justify-content-center my-4">
                                     <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">View More</a>
                                 </div>
@@ -90,7 +36,9 @@
                     </div>
                     <!-- Goc phai man hinh End-->
                 </div>
-                <h1 class="fw-bold mb-0">Related products</h1>
+
+
+                @* <h1 class="fw-bold mb-0">Related products</h1>
                 <div class="vesitable">
                     <div class="owl-carousel vegetable-carousel justify-content-center">
                         <div class="border border-primary rounded position-relative vesitable-item">
@@ -206,7 +154,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> *@
             </div>
         </div>
         <!-- Single Product End -->

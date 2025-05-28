@@ -50,6 +50,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.12.1, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.4, )"
@@ -67,6 +71,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2025.5.0, )"
             }
           },
           "imports": [

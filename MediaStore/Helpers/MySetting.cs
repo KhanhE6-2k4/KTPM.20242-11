@@ -11,5 +11,7 @@ namespace MediaStore.Helpers
 
         public static string INVOICE_KEY = "MyInvoice";
 
+        public static string TRANSACTION_KEY = "MyTransaction";
+
     }
 }

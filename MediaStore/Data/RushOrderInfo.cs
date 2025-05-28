@@ -7,7 +7,7 @@ namespace MediaStore.Data
     {
         public int RushId { get; set; }
 
-        public DateTime DeliveryTime { get; set; }
+        public DateTime? DeliveryTime { get; set; }
 
         public string Instruction { get; set; } = null!;
 

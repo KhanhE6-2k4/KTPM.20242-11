@@ -1,0 +1,23 @@
+@model IEnumerable<MediaStore.ViewModels.ProductViewModel>
+@foreach (var item in Model)
+{
+    <div class="d-flex align-items-center justify-content-start" style="margin-bottom: 30px;">
+        <div class="rounded" style="width: 150px; height: 150px; overflow: hidden;" >
+            <img src="~/img/media_img/@item.ImageUrl" style="width: 100%; height: 100%; object-position: left; object-fit: contain;" class="img-fluid rounded" alt="Image">
+        </div>
+        <div class="name_and_price">
+            <h6 class="mb-2 text-truncate" style="width: 150px;">@item.Title</h6>
+            <div class="d-flex mb-2">
+                <i class="fa fa-star text-secondary"></i>
+                <i class="fa fa-star text-secondary"></i>
+                <i class="fa fa-star text-secondary"></i>
+                <i class="fa fa-star text-secondary"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            <div class="d-flex mb-2">
+                <h5 class="fw-bold me-2">@($"{item.Price.ToString("#,##0")} VND")</h5>
+                @* <h5 class="text-danger text-decoration-line-through">25 $</h5> *@
+            </div>
+        </div>
+    </div>
+}

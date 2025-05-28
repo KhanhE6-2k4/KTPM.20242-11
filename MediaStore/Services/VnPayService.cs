@@ -55,6 +55,12 @@ namespace MediaStore.Services
             var vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
             var vnp_OrderInfo = vnpay.GetResponseData("vnp_OrderInfo");
 
+            var vnp_Amount = vnpay.GetResponseData("vnp_Amount");
+            var vnp_BankCode = vnpay.GetResponseData("vnp_BankCode");
+            var vnp_CardType = vnpay.GetResponseData("vnp_CardType");
+            var vnp_TransactionStatus = vnpay.GetResponseData("vnp_TransactionStatus");
+            var vnp_PayDate = vnpay.GetResponseData("vnp_PayDate");
+
             bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, _config["VnPay:HashSecret"]);
             if (!checkSignature)
             {
@@ -66,6 +72,11 @@ namespace MediaStore.Services
             return new VnPaymentResponseModel
             {
                 Success = true,
+                Amount = int.Parse(vnp_Amount) / 100,
+                BankCode = vnp_BankCode,
+                CardType = vnp_CardType,
+                TransactionStatus = vnp_TransactionStatus,
+                PayDate = vnp_PayDate,
                 PaymentMethod = "Vnpay",
                 OrderDescription = vnp_OrderInfo,
                 OrderId = vnp_oderId.ToString(),

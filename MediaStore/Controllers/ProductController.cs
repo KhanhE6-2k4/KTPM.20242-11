@@ -1,6 +1,7 @@
 ﻿using MediaStore.Data;
 using MediaStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace MediaStore.Controllers
 {
@@ -48,7 +49,8 @@ namespace MediaStore.Controllers
         //     return View(result);
         // }
 
-        public IActionResult Index(string? query, string? TypeName, int page = 1)
+        [HttpGet]
+        public IActionResult Index(string? query, string? TypeName, string sorted, int page = 1)
         {
             var products = db.Media.ToList(); // ToList() trước để có thể dùng 'is Book'
 
@@ -67,6 +69,27 @@ namespace MediaStore.Controllers
             if (!string.IsNullOrEmpty(query))
             {
                 products = products.Where(p => p.Title.Contains(query, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            // Sap xe sp
+            if (!string.IsNullOrEmpty(sorted) && sorted != "Default")
+            {
+                if (sorted == "az")
+                {
+                    products.Sort((a, b) => string.Compare(a.Title, b.Title));
+                }
+                else if (sorted == "za")
+                {
+                    products.Sort((a, b) => string.Compare(b.Title, a.Title));
+                }
+                else if (sorted == "price_asc")
+                {
+                    products.Sort((a, b) => a.Price.CompareTo(b.Price));
+                }
+                else
+                {
+                    products.Sort((a, b) => b.Price.CompareTo(a.Price));
+                }
             }
 
             // Tổng số sản phẩm và phân trang
@@ -94,6 +117,7 @@ namespace MediaStore.Controllers
             ViewBag.Query = query;
             ViewBag.TypeName = TypeName;
             ViewBag.TotalProduct = products.Count();
+            ViewBag.Sorted = sorted ?? "default"; // mặc định nếu null
 
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
