@@ -1,17 +1,19 @@
+using MediaStore.Data;
 using MediaStore.Helpers;
 using MediaStore.Services;
 using MediaStore.Services.Payment;
 using MediaStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Globalization;
 
 namespace MediaStore.Subsystem.VnPay
 {
     public class VnPayController : Controller
     {
-        private readonly VnPayService _vnPayService;
+        private readonly IVnPayService _vnPayService;
 
-        public VnPayController(VnPayService vnPayService)
+        public VnPayController(IVnPayService vnPayService)
         {
             _vnPayService = vnPayService;
         }
@@ -28,33 +30,52 @@ namespace MediaStore.Subsystem.VnPay
             };
         }
 
+
+
         public IActionResult Pay()
         {
             var invoice = HttpContext.Session.Get<InvoiceViewModel>(MySetting.INVOICE_KEY);
             var vnPaymentRequest = createRequest(invoice);
             return Redirect(_vnPayService.CreatePaymentUrl(HttpContext, vnPaymentRequest));
         }
+        // public IActionResult PaymentCallBack()
+        // {
+        //     var response = _vnPayService.PaymentExecute(Request.Query);
+        //     if (response == null || response.VnPayResponseCode != "00")
+        //     {
+        //         TempData["Message"] = $"Loi thanh toan VnPay: {response.VnPayResponseCode}";
+        //         return RedirectToAction("PaymentFail", "PayOrder");
+        //     }
 
-        public IActionResult PaymentSuccess()
-        {
-            return View();
-        }
-        public IActionResult PaymentFail()
-        {
-            return View();
-        }
+        //     // Luu don hang vao Database
+        //     TempData["Message"] = $"Thanh toan VnPay thanh cong";
+        //     return RedirectToAction("PaymentSuccess", "PayOrder");
+        // }
         public IActionResult PaymentCallBack()
         {
             var response = _vnPayService.PaymentExecute(Request.Query);
-            if (response == null || response.VnPayResponseCode != "00")
+            if (response == null)
             {
-                TempData["Message"] = $"Loi thanh toan VnPay: {response.VnPayResponseCode}";
-                return RedirectToAction("PaymentFail");
+                TempData["Message"] = $"Unknown error.";
+                return RedirectToAction("PaymentResult", "PayOrder");
             }
-
-            // Luu don hang vao Database
-            TempData["Message"] = $"Thanh toan VnPay thanh cong";
-            return RedirectToAction("PaymentSuccess");
+            var paymentTransaction = new PaymentTransaction
+            {
+                PaymentTime = ParseVnpDate(response.PayDate),
+                PaymentAmount = response.Amount,
+                Content = response.OrderDescription,
+                BankTransactionId = response.BankCode,
+                CardType = response.CardType
+            };
+            HttpContext.Session.Set<PaymentTransaction>(MySetting.TRANSACTION_KEY, paymentTransaction);
+            var responseCode = response.VnPayResponseCode;
+            TempData["Message"] = Message.GetMessage(responseCode);
+            TempData["Success"] = responseCode == "00" ? "yes" : "no"; 
+            return RedirectToAction("PaymentResult", "PayOrder");
+        }
+        private DateTime ParseVnpDate(string vnpDateString)
+        {
+            return DateTime.ParseExact(vnpDateString, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
         }
 
     }

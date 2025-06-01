@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Kỳ 2024.2\\Kỹ thuật phần mềm\\project\\MediaStore\\MediaStore\\MediaStore.csproj": {}
+    "C:\\Users\\ADMIN\\Downloads\\KTPM.20242-11-hotfix\\KTPM.20242-11-hotfix\\MediaStore\\MediaStore.csproj": {}
   },
   "projects": {
-    "D:\\Kỳ 2024.2\\Kỹ thuật phần mềm\\project\\MediaStore\\MediaStore\\MediaStore.csproj": {
+    "C:\\Users\\ADMIN\\Downloads\\KTPM.20242-11-hotfix\\KTPM.20242-11-hotfix\\MediaStore\\MediaStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Kỳ 2024.2\\Kỹ thuật phần mềm\\project\\MediaStore\\MediaStore\\MediaStore.csproj",
+        "projectUniqueName": "C:\\Users\\ADMIN\\Downloads\\KTPM.20242-11-hotfix\\KTPM.20242-11-hotfix\\MediaStore\\MediaStore.csproj",
         "projectName": "MediaStore",
-        "projectPath": "D:\\Kỳ 2024.2\\Kỹ thuật phần mềm\\project\\MediaStore\\MediaStore\\MediaStore.csproj",
-        "packagesPath": "C:\\Users\\use\\.nuget\\packages\\",
-        "outputPath": "D:\\Kỳ 2024.2\\Kỹ thuật phần mềm\\project\\MediaStore\\MediaStore\\obj\\",
+        "projectPath": "C:\\Users\\ADMIN\\Downloads\\KTPM.20242-11-hotfix\\KTPM.20242-11-hotfix\\MediaStore\\MediaStore.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ADMIN\\Downloads\\KTPM.20242-11-hotfix\\KTPM.20242-11-hotfix\\MediaStore\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\use\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,12 +38,16 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.12.1, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.4, )"
@@ -67,6 +65,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2025.5.0, )"
             }
           },
           "imports": [
@@ -88,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

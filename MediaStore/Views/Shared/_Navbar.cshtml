@@ -15,7 +15,7 @@
     </div>
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Bookstore</h1></a>
+            <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Media store</h1></a>
             <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>
             </button>
@@ -29,7 +29,9 @@
                        class="nav-item nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "Product" ? "active" : "")">Shop</a>
                     <a asp-controller="Cart" asp-action="Index"
 					   class="nav-item nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "Cart" ? "active" : "")">Cart</a>
-                    <a asp-controller="VnPay" asp-action="Checkout" class="nav-item nav-link">Pay with VNPay</a>
+                    <a href="#" id="orderLink"
+					   class="nav-item nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "Order" ? "active" : "")">Order</a>
+                    @* <a asp-controller="VnPay" asp-action="Checkout" class="nav-item nav-link">Pay with VNPay</a> *@
 
                     <!-- <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a> -->
 
@@ -60,3 +62,75 @@
     </div>
 </div>
 <!-- Navbar End -->
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="loginModalLabel">Login Required</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        You need to log in to access the Order section. Would you like to log in now?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="confirmLoginBtn">Log In</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    @* document.addEventListener('DOMContentLoaded', () => {
+        const isAuthenticated = '@User.Identity.IsAuthenticated' === 'True';
+        const orderLink = document.getElementById('orderLink');
+        if (!orderLink) return;          // tránh lỗi nếu link không tồn tại trên 1 trang nào đó
+
+        orderLink.addEventListener('click', e => {
+            if (!isAuthenticated) {
+                e.preventDefault();
+                const modal = new bootstrap.Modal(document.getElementById('loginModal'));
+                modal.show();
+
+                document.getElementById('confirmLoginBtn').onclick = () => {
+                    const returnUrl = encodeURIComponent('/Order/Index');
+                    window.location.href = `/Account/Login?returnUrl=${returnUrl}`;
+                };
+            } else {
+                // Nếu đã đăng nhập thì chuyển thẳng đến trang Order
+                window.location.href = '/Order/Index';
+            }
+        });
+    }); *@
+
+    document.getElementById('orderLink').addEventListener('click', async function(e) {
+        e.preventDefault();
+
+        try {
+            // Gọi API hoặc fetch trang Order (ví dụ lấy nội dung qua AJAX)
+            let response = await fetch('/Order/Index', {
+                credentials: 'include'  // gửi cookie
+            });
+
+            if (response.status === 401 || response.status === 403) {
+                // Hiện modal login
+                const modal = new bootstrap.Modal(document.getElementById('loginModal'));
+                modal.show();
+                document.getElementById('confirmLoginBtn').onclick = () => {
+                    const returnUrl = encodeURIComponent('/Order/Index');
+                    window.location.href = `/Account/Login?returnUrl=${returnUrl}`;
+                };
+            } else if (response.ok) {
+                // Nếu được phép truy cập, chuyển trang
+                window.location.href = '/Order/Index';
+            } else {
+                alert('Lỗi không xác định');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
+</script>
+

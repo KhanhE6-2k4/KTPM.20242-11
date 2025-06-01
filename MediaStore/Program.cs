@@ -1,9 +1,17 @@
 using MediaStore.Data;
 using MediaStore.Services;
+using MediaStore.Services.Email;
 using Microsoft.Build.Execution;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load config mặc định appsettings.json
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+// Load config appsettings.Development.json nếu môi trường là Development
+builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -26,8 +34,26 @@ builder.Services.AddAuthentication("MyCookieAuth")
     .AddCookie("MyCookieAuth", options =>
     {
         options.LoginPath = "/Account/Login";
-        options.AccessDeniedPath = "/Account/AccessDenied";
+        // options.AccessDeniedPath = "/Account/AccessDenied";
+        options.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToAccessDenied = context =>
+            {
+                context.Response.StatusCode = 403; // Trả 403 thay vì redirect
+                return Task.CompletedTask;
+            },
+            OnRedirectToLogin = context =>
+            {
+                context.Response.StatusCode = 401; // Trả 401 thay vì redirect
+                return Task.CompletedTask;
+            }
+        };
     });
+
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient<EmailService>();
+
+
 builder.Services.AddAuthorization(); // Phan them vao
 
 builder.Services.AddControllersWithViews(); // Phan them vao
@@ -62,11 +88,7 @@ app.UseAuthentication(); // Phan them vao
 app.UseAuthorization();
 
 app.MapStaticAssets();
-
-app.MapControllerRoute(
-    name: "areas",
-    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
-); // Phan them vao
+app.MapControllerRoute(name: "areas", pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
 // app.MapControllerRoute(
 //     name: "default",

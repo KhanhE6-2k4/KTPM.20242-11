@@ -1,0 +1,40 @@
+@model MediaStore.Data.Media 
+@{ 
+    ViewData["Title"] = "Xác nhận Xóa Sản phẩm";
+    // Layout = "_AdminLayout"; 
+}
+
+<h1>Xác nhận Xóa Sản phẩm</h1>
+<h3 class="text-danger">Bạn có chắc chắn muốn xóa vĩnh viễn sản phẩm này không?</h3>
+<hr />
+@if (Model != null)
+{
+    <div>
+        <h4>Sản phẩm: @Model.Title</h4>
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.MediaId</dd>
+
+            <dt class="col-sm-3">Giá</dt>
+            <dd class="col-sm-9">@Model.Price.ToString("N0") đ</dd>
+
+            <dt class="col-sm-3">Mô tả</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
+            @* Có thể hiển thị thêm các thông tin của Book, DVD, CD/LP nếu muốn, 
+               nhưng cần truyền ViewModel đầy đủ hơn hoặc query trong View (không khuyến khích) *@
+        </dl>
+
+        <form asp-action="Delete" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="MediaId" /> 
+            <input type="submit" value="Xóa ngay" class="btn btn-danger" /> |
+            <a asp-action="Index" class="btn btn-secondary">Hủy bỏ</a>
+        </form>
+    </div>
+}
+else
+{
+    <p class="text-danger">Không tìm thấy thông tin sản phẩm.</p>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại Danh sách</a>
+}

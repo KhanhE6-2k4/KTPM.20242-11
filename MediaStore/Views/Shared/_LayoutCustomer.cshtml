@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Book Store</title>
+    <title>Media Store</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -156,12 +156,18 @@ $(document).ready(function () {
     })
 });
 
-function loadPage(page, query = "") {
+@* function loadPage(page, query = "") {
     const url = `/Product/Index?page=${page}&query=${encodeURIComponent(query)}`;
     $.get(url, function (data) {
         $('#searchResult').html(data);
     });
-}
+} *@
+    function loadPage(page, query = "", type = "", sorted = "") {
+        const url = `/Product/Index?page=${page}&query=${encodeURIComponent(query)}&TypeName=${encodeURIComponent(type)}&sorted=${encodeURIComponent(sorted)}`;
+        $.get(url, function (data) {
+            $('#searchResult').html(data);
+        });
+    }
 
 
     </script>

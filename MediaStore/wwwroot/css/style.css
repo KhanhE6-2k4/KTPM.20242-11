@@ -178,12 +178,14 @@
 
 /*** Hero Header ***/
 .hero-header {
-    background: linear-gradient(rgba(248, 223, 173, 0.1), rgba(248, 223, 173, 0.1)), url(../img/newhero-img.PNG);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    image-rendering: auto;
+    background-color: rgb(95, 209, 178); /* màu nền nhẹ */
 }
+
+.hero-header h1 {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
 
 .carousel-item {
     position: relative;

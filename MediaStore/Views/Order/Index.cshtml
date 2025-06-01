@@ -1,0 +1,119 @@
+@model IEnumerable<dynamic>
+@{
+    ViewData["Title"] = "Order";
+}
+
+<!-- Single Page Header start -->
+    <div class="container-fluid page-header py-5">
+        <h1 class="text-center text-white display-6">Order</h1>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+            <li class="breadcrumb-item active text-white">Order</li> 
+        </ol>
+    </div>
+    <!-- Single Page Header End -->
+
+    <!-- Search -->
+    <div class="col-xl-3">
+        <div class="input-group w-100 mx-auto d-flex ms-3 mb-4 mt-3">
+            <input type="search" id="searchBox" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1" value="@ViewBag.Keyword">
+            <span style="cursor: pointer;" id="searchButton" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+        </div>
+    </div>
+
+
+    @if (!Model.Any()) {
+        <div class="d-flex justify-content-center align-items-center fs-2" style="min-height:300px; margin-top:50px;">
+            <p class="m-0">No Data</p>
+        </div>
+    }
+    else
+    @foreach (var order in Model)
+    {
+        var rushList = order.RushDelivery as IEnumerable<dynamic>;
+        <div class="card mb-3">
+            <div class="card-header">
+                <span>Order #@order.OrderId - <strong class="order-status">@order.Status</strong></span>
+
+                @if (order.Status == "Pending")
+                {
+                    <button type="button" class="btn btn-sm btn-danger reject-btn ms-4" data-order-id="@order.OrderId">
+                        Reject
+                    </button>
+                }
+            </div>
+            <div class="card-body">
+                <p><strong>Customer:</strong> @order.CustomerName</p>
+                <p><strong>Address:</strong> @order.Address</p>
+                <p><strong>Subtotal:</strong> @($"{order.Subtotal.ToString("#,##0")} VND")</p>
+                <p><strong>VAT:</strong> @($"{order.VAT.ToString("#,##0")} VND")</p>
+                <p><strong>Shipping Fees:</strong> @($"{order.ShippingFees.ToString("#,##0")} VND")</p>
+                <p><strong>Total Price:</strong> @($"{order.Total.ToString("#,##0")} VND")</p>
+                @* <p><strong>Transaction:</strong> @order.TransactionCode</p> *@
+
+                <h5>Items:</h5>
+                <ul>
+                    @foreach (var item in order.MediaItems)
+                    {
+                        <li>@item.Title x @item.Quantity (Type: @(item.OrderType == 1 ? "Rush" : "Regular"))</li>
+                    }
+                </ul>
+
+                @if (rushList != null && rushList.Any())
+                {
+                    <h5>Rush Deliver:</h5>
+                        <ul>
+                            @foreach (var item in rushList)
+                            {
+                                <li>Delivery time: @item.DeliveryTime</li>
+                                <li>Instruction: @(string.IsNullOrEmpty(item.Instruction) ? "No" : item.Instruction)</li>
+                            }
+                        </ul>
+
+                }
+            </div>
+        </div>
+    }
+
+    <script>
+        document.getElementById("searchButton").addEventListener("click", function () {
+            const keyword = document.getElementById("searchBox").value.trim();
+            window.location.href = `/Order/Index?keyword=${encodeURIComponent(keyword)}`;
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".reject-btn").forEach(function (button) {
+                button.addEventListener("click", function () {
+                    const orderId = this.dataset.orderId;
+                    const confirmReject = confirm("Are you sure you want to reject this order?");
+                    if (!confirmReject) return;
+                    
+                    fetch('/Order/UpdateStatus', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            orderId: orderId,
+                            newStatus: "Reject"
+                        })
+                    })
+                    .then(result => {
+                        if (result.ok) {
+                            // Cap nhat UI
+                            const statusSpan = this.closest(".card-header").querySelector(".order-status");
+                            statusSpan.textContent = "Reject";
+                            this.remove();
+                        }
+                        else {
+                            alert("Failed to update status.");
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("Error caught while updating status.");
+                    });
+                });
+            });
+        });
+    </script>

@@ -1,2 +1,29 @@
-<h2>Admin Dashboard</h2>
-<p>Xin chao Admin @User.Identity.Name</p>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    // Nếu bạn có một tệp layout chung cho toàn trang (ví dụ: Views/Shared/_Layout.cshtml), 
+    // hoặc một layout riêng cho khu vực Admin (ví dụ: Areas/Admin/Views/Shared/_AdminLayout.cshtml),
+    // bạn có thể bỏ comment dòng dưới và chọn layout phù hợp.
+    // Layout = "_Layout"; 
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="display-4">Trang quản trị (Admin Dashboard)</h1>
+            <p class="lead">Chào mừng Quản trị viên!</p>
+            <hr class="my-4">
+            
+            <h2>Menu Quản lý:</h2>
+            <div class="list-group">
+                <a asp-area="Admin" asp-controller="ProductManagement" asp-action="Index" class="list-group-item list-group-item-action">
+                    Quản lý Sản phẩm
+                    <small class="d-block text-muted">Thêm, sửa, xóa các sản phẩm media.</small>
+                </a>
+                <a asp-area="Admin" asp-controller="OrderManagement" asp-action="Index" class="list-group-item list-group-item-action">
+                    Quản lý Đơn hàng
+                    <small class="d-block text-muted">Xem và cập nhật trạng thái các đơn hàng.</small>
+                </a>
+                </div>
+        </div>
+    </div>
+</div>

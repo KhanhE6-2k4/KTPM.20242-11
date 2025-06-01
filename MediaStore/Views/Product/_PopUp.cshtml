@@ -26,19 +26,6 @@
 
                     <!-- Cột input-group -->
                     <div class="col-3 d-flex justify-content-center align-items-center">
-                        @* <div class="input-group quantity" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <input id="qty-@Model.MediaId" type="text" class="form-control form-control-sm text-center border-0" value="1" name="qty">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div> *@
                         <div class="input-group quantity" style="width: 100px;">
                             <div class="input-group-btn">
                                 <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="changeQty(@Model.MediaId, -1)">

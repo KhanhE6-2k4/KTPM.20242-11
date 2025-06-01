@@ -1,0 +1,142 @@
+@model MediaStore.ViewModels.AdminCreateProductViewModel 
+@{ // Tái sử dụng AdminCreateProductViewModel cho Edit
+    ViewData["Title"] = "Chỉnh sửa Sản phẩm";
+    // Layout = "_AdminLayout"; 
+}
+
+<h1>Chỉnh sửa Sản phẩm ID: @ViewBag.ProductId</h1> @* Controller Edit (GET) cần gán ViewBag.ProductId = id; *@
+<hr />
+
+<form asp-action="Edit" asp-route-id="@ViewBag.ProductId" method="post"> @* Đảm bảo id được truyền đúng *@
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    @* Input ẩn cho MediaId nếu không có trong ViewModel chính hoặc để đảm bảo id được gửi đi *@
+    @* <input type="hidden" name="id" value="@ViewBag.ProductId" /> *@
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label asp-for="MediaType" class="control-label fw-bold">Loại Media (*)</label>
+                <select asp-for="MediaType" class="form-select" asp-items="@(new SelectList(ViewBag.MediaTypes))">
+                    <option value="">-- Chọn Loại --</option>
+                </select>
+                <span asp-validation-for="MediaType" class="text-danger"></span>
+            </div>
+
+            <h4>Thông tin chung</h4>
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="control-label fw-bold">Tiêu đề (*)</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Price" class="control-label fw-bold">Giá (*)</label>
+                <input asp-for="Price" type="number" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="TotalQuantity" class="control-label fw-bold">Số lượng tồn (*)</label>
+                <input asp-for="TotalQuantity" type="number" class="form-control" />
+                <span asp-validation-for="TotalQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Weight" class="control-label fw-bold">Cân nặng (kg) (*)</label>
+                <input asp-for="Weight" type="number" step="0.01" class="form-control" />
+                <span asp-validation-for="Weight" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3 form-check">
+                <input asp-for="RushOrderSupported" class="form-check-input" />
+                <label asp-for="RushOrderSupported" class="form-check-label">Hỗ trợ Giao hàng hỏa tốc</label>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ImageUrl" class="control-label">URL Hình ảnh</label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Barcode" class="control-label fw-bold">Barcode (*)</label>
+                <input asp-for="Barcode" class="form-control" />
+                <span asp-validation-for="Barcode" class="text-danger"></span>
+            </div>
+             <div class="form-group mb-3">
+                <label asp-for="Description" class="control-label fw-bold">Mô tả (*)</label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ProductDimension" class="control-label">Kích thước Sản phẩm</label>
+                <input asp-for="ProductDimension" class="form-control" />
+                <span asp-validation-for="ProductDimension" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ImportDate" class="control-label">Ngày Nhập Hàng</label>
+                <input asp-for="ImportDate" type="date" class="form-control" />
+                <span asp-validation-for="ImportDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            @* Các trường này sẽ được ẩn/hiện bằng JavaScript dựa trên MediaType *@
+            <div id="bookSpecific" class="media-specific-fields border p-3 rounded mb-3" style="display:none;">
+                <h4>Thông tin Sách (Book)</h4>
+                <div class="form-group mb-3"><label asp-for="Authors" class="control-label fw-bold">Tác giả (*)</label><input asp-for="Authors" class="form-control" /><span asp-validation-for="Authors" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="CoverType" class="control-label fw-bold">Loại bìa (*)</label><input asp-for="CoverType" class="form-control" /><span asp-validation-for="CoverType" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="Publisher" class="control-label fw-bold">Nhà xuất bản (*)</label><input asp-for="Publisher" class="form-control" /><span asp-validation-for="Publisher" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="PublicationDate" class="control-label fw-bold">Ngày XB (*)</label><input asp-for="PublicationDate" type="date" class="form-control" /><span asp-validation-for="PublicationDate" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="Pages" class="control-label">Số trang</label><input asp-for="Pages" type="number" class="form-control" /><span asp-validation-for="Pages" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="BookLanguage" class="control-label">Ngôn ngữ (Sách)</label><input asp-for="BookLanguage" class="form-control" /><span asp-validation-for="BookLanguage" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="BookGenre" class="control-label">Thể loại (Sách)</label><input asp-for="BookGenre" class="form-control" /><span asp-validation-for="BookGenre" class="text-danger"></span></div>
+            </div>
+
+            <div id="dvdSpecific" class="media-specific-fields border p-3 rounded mb-3" style="display:none;">
+                <h4>Thông tin DVD</h4>
+                <div class="form-group mb-3"><label asp-for="DvdType" class="control-label fw-bold">Loại DVD (*)</label><input asp-for="DvdType" class="form-control" /><span asp-validation-for="DvdType" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="Director" class="control-label fw-bold">Đạo diễn (*)</label><input asp-for="Director" class="form-control" /><span asp-validation-for="Director" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="Runtime" class="control-label fw-bold">Thời lượng (phút) (*)</label><input asp-for="Runtime" type="number" class="form-control" /><span asp-validation-for="Runtime" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="Studio" class="control-label fw-bold">Hãng phim (*)</label><input asp-for="Studio" class="form-control" /><span asp-validation-for="Studio" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="DvdLanguage" class="control-label fw-bold">Ngôn ngữ (DVD) (*)</label><input asp-for="DvdLanguage" class="form-control" /><span asp-validation-for="DvdLanguage" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="Subtitles" class="control-label fw-bold">Phụ đề (*)</label><input asp-for="Subtitles" class="form-control" /><span asp-validation-for="Subtitles" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="ReleasedDate" class="control-label">Ngày phát hành</label><input asp-for="ReleasedDate" type="date" class="form-control" /><span asp-validation-for="ReleasedDate" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="DvdGenre" class="control-label">Thể loại (DVD)</label><input asp-for="DvdGenre" class="form-control" /><span asp-validation-for="DvdGenre" class="text-danger"></span></div>
+            </div>
+
+            <div id="cdlpSpecific" class="media-specific-fields border p-3 rounded mb-3" style="display:none;">
+                <h4>Thông tin CD/LP</h4>
+                <div class="form-group mb-3"><label asp-for="Artists" class="control-label fw-bold">Nghệ sĩ (*)</label><input asp-for="Artists" class="form-control" /><span asp-validation-for="Artists" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="RecordLabel" class="control-label fw-bold">Hãng đĩa (*)</label><input asp-for="RecordLabel" class="form-control" /><span asp-validation-for="RecordLabel" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="TrackList" class="control-label fw-bold">Danh sách bài hát (*)</label><textarea asp-for="TrackList" class="form-control" rows="3"></textarea><span asp-validation-for="TrackList" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="CdLpGenre" class="control-label fw-bold">Thể loại (CD/LP) (*)</label><input asp-for="CdLpGenre" class="form-control" /><span asp-validation-for="CdLpGenre" class="text-danger"></span></div>
+                <div class="form-group mb-3"><label asp-for="CdLpReleaseDate" class="control-label">Ngày phát hành (CD/LP)</label><input asp-for="CdLpReleaseDate" type="date" class="form-control" /><span asp-validation-for="CdLpReleaseDate" class="text-danger"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mt-4">
+        <input type="submit" value="Lưu thay đổi" class="btn btn-success" />
+        <a asp-action="Index" class="btn btn-secondary ms-2">Quay lại Danh sách</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            function toggleSpecificFields() {
+                $('.media-specific-fields').hide();
+                var selectedType = $('#MediaType').val();
+                if (selectedType === 'Book') {
+                    $('#bookSpecific').show();
+                } else if (selectedType === 'DVD') {
+                    $('#dvdSpecific').show();
+                } else if (selectedType === 'CD' || selectedType === 'LP') {
+                    $('#cdlpSpecific').show();
+                }
+            }
+            $('#MediaType').change(toggleSpecificFields);
+            // Kích hoạt khi tải trang để hiển thị đúng phần dựa trên giá trị ban đầu của MediaType
+            // Điều này quan trọng cho form Edit để hiển thị đúng các trường khi tải dữ liệu.
+            toggleSpecificFields(); 
+        });
+    </script>
+}

@@ -214,9 +214,25 @@ namespace MediaStore.Data
 
             modelBuilder.Entity<Media>(entity =>
             {
-                entity.HasKey(e => e.MediaId).HasName("PK__Media__D0A840F4B2BCA4F4");
+                entity.HasKey(e => e.MediaId); // .HasName("PK__Media__D0A840F4B2BCA4F4"); // Giữ lại tên PK nếu bạn muốn khớp với script
 
-                entity.Property(e => e.MediaId).HasColumnName("media_id");
+                entity.Property(e => e.MediaId)
+                    .HasColumnName("media_id")
+                    .ValueGeneratedOnAdd(); // << --- THÊM DÒNG NÀY VÀO ĐỂ SỬA LỖI
+
+                // Các cấu hình khác cho thuộc tính của Media giữ nguyên
+                entity.Property(e => e.Title)
+                    .HasMaxLength(50) // Kiểm tra lại độ dài này với ViewModel và script.sql
+                    .IsUnicode(false)
+                    .HasColumnName("title");
+                entity.Property(e => e.Price).HasColumnName("price");
+                entity.Property(e => e.TotalQuantity).HasColumnName("totalQuantity");
+                entity.Property(e => e.Weight).HasColumnName("weight");
+                entity.Property(e => e.RushOrderSupported).HasColumnName("rushOrderSupported");
+                entity.Property(e => e.ImageUrl)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("imageUrl");
                 entity.Property(e => e.Barcode)
                     .HasMaxLength(50)
                     .IsUnicode(false)
@@ -225,23 +241,19 @@ namespace MediaStore.Data
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("description");
-                entity.Property(e => e.ImageUrl)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("imageUrl");
-                entity.Property(e => e.ImportDate).HasColumnName("importDate");
-                entity.Property(e => e.Price).HasColumnName("price");
                 entity.Property(e => e.ProductDimension)
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("productDimension");
-                entity.Property(e => e.RushOrderSupported).HasColumnName("rushOrderSupported");
-                entity.Property(e => e.Title)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("title");
-                entity.Property(e => e.TotalQuantity).HasColumnName("totalQuantity");
-                entity.Property(e => e.Weight).HasColumnName("weight");
+                entity.Property(e => e.ImportDate).HasColumnName("importDate");
+
+                // Các mối quan hệ một-một với các bảng con (Book, Dvd, CdAndLp)
+                // EF Core thường tự phát hiện các mối quan hệ này dựa trên navigation properties
+                // và khóa ngoại đã được định nghĩa trong các thực thể con.
+                // Nếu bạn muốn tường minh, bạn có thể thêm:
+                // entity.HasOne(p => p.Book).WithOne(b => b.Media).HasForeignKey<Book>(b => b.MediaId);
+                // entity.HasOne(p => p.Dvd).WithOne(d => d.Media).HasForeignKey<Dvd>(d => d.MediaId);
+                // entity.HasOne(p => p.CdAndLp).WithOne(c => c.Media).HasForeignKey<CdAndLp>(c => c.MediaId);
             });
 
             modelBuilder.Entity<OrderInfo>(entity =>

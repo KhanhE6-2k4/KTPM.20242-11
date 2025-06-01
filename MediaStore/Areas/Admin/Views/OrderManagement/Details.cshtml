@@ -1,0 +1,197 @@
+@model MediaStore.Data.OrderInfo
+@{
+    ViewData["Title"] = "Chi tiết Đơn hàng #" + (Model?.OrderId.ToString() ?? "N/A");
+    // Layout = "_AdminLayout"; // Bỏ comment nếu bạn có layout riêng cho Admin
+}
+
+@if (Model != null)
+{
+    <h1>Chi tiết Đơn hàng #@Model.OrderId</h1>
+    <hr />
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Thông tin Đơn hàng</h4>
+            <dl class="row">
+                <dt class="col-sm-4">ID Đơn hàng:</dt>
+                <dd class="col-sm-8">@Model.OrderId</dd>
+
+                <dt class="col-sm-4">Trạng thái hiện tại:</dt>
+                <dd class="col-sm-8">
+                    <span class="badge @if(Model.Status == "Completed") {<text>bg-success</text>} else if(Model.Status == "Cancelled" || Model.Status == "Rejected") {<text>bg-danger</text>} else if(Model.Status == "Processing" || Model.Status == "Shipped") {<text>bg-info</text>} else {<text>bg-warning text-dark</text>}">
+                        @Model.Status
+                    </span>
+                </dd>
+
+                <dt class="col-sm-4">Tổng tiền sản phẩm:</dt>
+                <dd class="col-sm-8">@Model.Subtotal.ToString("N0") đ</dd>
+
+                <dt class="col-sm-4">Phí vận chuyển:</dt>
+                <dd class="col-sm-8">@Model.ShippingFees.ToString("N0") đ</dd>
+
+                <dt class="col-sm-4">Tổng cộng:</dt>
+                <dd class="col-sm-8 fw-bold">@((Model.Subtotal + Model.ShippingFees).ToString("N0")) đ</dd>
+                
+                @* Ví dụ thêm ngày đặt hàng nếu bạn có trường đó trong OrderInfo Entity *@
+                @* <dt class="col-sm-4">Ngày đặt:</dt> *@
+                @* <dd class="col-sm-8">@(Model.OrderDate.HasValue ? Model.OrderDate.Value.ToString("dd/MM/yyyy HH:mm") : "N/A")</dd> *@
+            </dl>
+
+            <h4>Cập nhật Trạng thái Đơn hàng</h4>
+            <form asp-action="UpdateStatus" asp-route-orderId="@Model.OrderId" method="post">
+                @Html.AntiForgeryToken()
+                <div class="input-group mb-3">
+                    <select name="newStatus" class="form-select">
+                        @if (ViewBag.PossibleStatuses is List<string> possibleStatuses)
+                        {
+                            foreach (var status in possibleStatuses)
+                            {
+                                if (status == Model.Status)
+                                {
+                                    <option value="@status" selected>@status (Hiện tại)</option>
+                                }
+                                else
+                                {
+                                    <option value="@status">@status</option>
+                                }
+                            }
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-primary">Cập nhật Trạng thái</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            @if (Model.Delivery != null)
+            {
+                <h4>Thông tin Giao hàng</h4>
+                <dl class="row">
+                    <dt class="col-sm-4">Tên người nhận:</dt><dd class="col-sm-8">@Model.Delivery.Name</dd>
+                    <dt class="col-sm-4">Điện thoại:</dt><dd class="col-sm-8">@Model.Delivery.Phone</dd>
+                    <dt class="col-sm-4">Email:</dt><dd class="col-sm-8">@Model.Delivery.Email</dd>
+                    <dt class="col-sm-4">Địa chỉ:</dt><dd class="col-sm-8">@Model.Delivery.Address</dd>
+                    <dt class="col-sm-4">Tỉnh/Thành:</dt><dd class="col-sm-8">@Model.Delivery.Province</dd>
+                    @if (!string.IsNullOrEmpty(Model.Delivery.Message))
+                    {
+                        <dt class="col-sm-4">Ghi chú:</dt><dd class="col-sm-8">@Model.Delivery.Message</dd>
+                    }
+                </dl>
+            }
+
+            @if (Model.RushOrderInfos != null && Model.RushOrderInfos.Any())
+            {
+                <h4>Thông tin Giao hàng Hỏa tốc</h4>
+                @foreach(var rushInfo in Model.RushOrderInfos)
+                {
+                    <dl class="row">
+                        <dt class="col-sm-4">Thời gian giao mong muốn:</dt>
+                    
+                        
+                        <dt class="col-sm-4">Chỉ dẫn:</dt>
+                        <dd class="col-sm-8">@rushInfo.Instruction</dd>
+                    </dl>
+                }
+            }
+        </div>
+    </div>
+
+    <h4 class="mt-4">Các sản phẩm trong đơn hàng</h4>
+    @if (Model.OrderMedia != null && Model.OrderMedia.Any())
+    {
+        <table class="table table-sm table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th class="text-end">Giá</th>
+                    <th class="text-center">Số lượng</th>
+                    <th class="text-end">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderMedia)
+                {
+                    <tr>
+                        <td>@(item.Media?.Title ?? "Sản phẩm không xác định")</td>
+                        <td class="text-end">@(item.Media?.Price.ToString("N0") ?? "0") đ</td>
+                        <td class="text-center">@item.Quantity</td>
+                        <td class="text-end">@((item.Media != null ? item.Media.Price * item.Quantity : 0).ToString("N0")) đ</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Không có sản phẩm nào trong đơn hàng này.</p>
+    }
+
+    @if (Model.Invoices != null && Model.Invoices.Any())
+    {
+        <h4 class="mt-4">Thông tin Hóa đơn & Thanh toán</h4>
+        @foreach(var invoice in Model.Invoices)
+        {
+            <dl class="row">
+                <dt class="col-sm-4">ID Hóa đơn:</dt>
+                <dd class="col-sm-8">@invoice.InvoiceId</dd>
+                
+                <dt class="col-sm-4">Tổng tiền hóa đơn:</dt>
+                <dd class="col-sm-8">@invoice.TotalAmount.ToString("N0") đ</dd>
+                
+                @if(invoice.Transaction != null)
+                {
+                    <dt class="col-sm-4">ID Giao dịch TT:</dt>
+                    <dd class="col-sm-8">@invoice.Transaction.TransactionId</dd>
+                    
+                    <dt class="col-sm-4">Mã GD Ngân hàng:</dt>
+                    <dd class="col-sm-8">@invoice.Transaction.BankTransactionId</dd>
+                    
+                    <dt class="col-sm-4">Thời gian TT:</dt>
+                    <dd class="col-sm-8">@invoice.Transaction.PaymentTime.ToString("g")</dd> @* PaymentTime là DateTime không nullable *@
+                    
+                    <dt class="col-sm-4">Loại thẻ:</dt>
+                    <dd class="col-sm-8">@invoice.Transaction.CardType</dd>
+                    
+                    <dt class="col-sm-4">Nội dung TT:</dt>
+                    <dd class="col-sm-8">@invoice.Transaction.Content</dd>
+                }
+                else
+                {
+                     <dt class="col-sm-4">Thanh toán:</dt>
+                     <dd class="col-sm-8">Chưa có thông tin giao dịch.</dd>
+                }
+            </dl>
+        }
+    }
+    else
+    {
+        <h4 class="mt-4">Thông tin Hóa đơn & Thanh toán</h4>
+        <p>Chưa có hóa đơn cho đơn hàng này.</p>
+    }
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-secondary">Quay lại Danh sách Đơn hàng</a>
+    </div>
+}
+else
+{
+    <h1>Chi tiết Đơn hàng</h1>
+    <hr />
+    <p class="text-danger">Không tìm thấy thông tin đơn hàng.</p>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại Danh sách Đơn hàng</a>
+}

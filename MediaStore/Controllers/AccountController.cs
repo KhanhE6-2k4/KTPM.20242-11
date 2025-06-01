@@ -5,21 +5,22 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
-namespace Bookstore.Controllers
+namespace MediaStore.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly AimsContext _context;
+        private readonly AimsContext db;
         public AccountController(AimsContext context)
         {
-            _context = context;
+            db = context;
         }
         [HttpGet]
-        public IActionResult Login() => View();
+        public IActionResult Login(string? returnUrl = null) => View();
 
         [HttpPost]
-        public async Task<IActionResult> Login(string username, string password, string loginAsGuest)
+        public async Task<IActionResult> Login(string username, string password, string loginAsGuest, string? returnUrl)
         {
             if (loginAsGuest == "true")
             {
@@ -33,7 +34,7 @@ namespace Bookstore.Controllers
                 await HttpContext.SignInAsync("MyCookieAuth", guestPrincipal);
                 return RedirectToAction("Index", "Home");
             }
-            var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+            var user = db.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
             if (user == null)
             {
                 ViewBag.Error = "Login Failed";
@@ -41,9 +42,10 @@ namespace Bookstore.Controllers
             }
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim("UserID", user.UserId.ToString()),
-                new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
+                new Claim(ClaimTypes.Name, user.Username), // Ten nguoi dung
+                new Claim("UserID", user.UserId.ToString()), // ID neu can
+                new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "Customer"),
+                new Claim(ClaimTypes.Email, user.Email) // Email nguoi dung => loc don hang
             };
             var identity = new ClaimsIdentity(claims, "MyCookieAuth");
             var principal = new ClaimsPrincipal(identity);
@@ -52,6 +54,10 @@ namespace Bookstore.Controllers
             if (user.IsAdmin)
             {
                 return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+            }
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
         }
